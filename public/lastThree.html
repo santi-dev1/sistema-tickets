@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Últimos Tres Tickets</title>
+  <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+</head>
+<body>
+  <h1>Últimos Tres Tickets</h1>
+  <ul id="last-three-tickets"></ul>
+
+  <script>
+    const socket = io();
+
+    socket.on('last-three-tickets', (tickets) => {
+      const list = document.getElementById('last-three-tickets');
+      list.innerHTML = '';
+      tickets.forEach(ticket => {
+        const li = document.createElement('li');
+        li.textContent = `Ticket Número: ${ticket.number}`;
+        list.appendChild(li);
+      });
+    });
+  </script>
+</body>
+</html>

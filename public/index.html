@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Actual</title>
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <h1>Ticket Actual</h1>
+    <button id="next-ticket">Obtener Siguiente Ticket</button>
+    <p id="ticket-number"></p>
+    <audio id="ticket-sound" src="levelpassed.mp3"></audio>
+
+
+    <script>
+        const socket = io();
+
+        document.getElementById('next-ticket').addEventListener('click', () => {
+            socket.emit('get-next-ticket');
+        });
+
+    socket.on('ticket-called', (ticket) => {
+        document.getElementById('ticket-number').textContent = `Ticket Número: ${ticket.number}`;
+        document.getElementById('ticket-sound').play();
+    });
+    </script>    
+</body>
+</html>
